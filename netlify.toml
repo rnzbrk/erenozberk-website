@@ -11,8 +11,4 @@
 [[redirects]]
   from = "/"
   to = "/blog/"
-<<<<<<< HEAD
   status = 200
-=======
-  status = 200
->>>>>>> 67d80d30050ac1743d905132b404532ebed000f8
