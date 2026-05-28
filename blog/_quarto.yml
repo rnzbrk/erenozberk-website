@@ -1,0 +1,21 @@
+project:
+  type: website
+  output-dir: "../docs/blog"
+
+website:
+  title: "Dr. Eren Halil Özberk"
+  description: "Psychometrics, AI Assessment, and Measurement Science"
+  navbar: false
+
+format:
+  html:
+    theme: cosmo
+    toc: true
+    code-copy: true
+    code-overflow: wrap
+    fig-align: center
+    link-external-newwindow: true
+
+execute:
+  freeze: auto
+  cache: true

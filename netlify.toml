@@ -1,2 +1,2 @@
 [build]
-  publish = "blog/_site"
+  publish = "docs"
