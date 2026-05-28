@@ -1,11 +1,2 @@
 [build]
-  command = "quarto render blog && cp index.html blog/_site/index.html"
   publish = "blog/_site"
-
-[[plugins]]
-  package = "@quarto/netlify-plugin-quarto"
-
-[[redirects]]
-  from = "/"
-  to = "/blog/"
-  status = 200
