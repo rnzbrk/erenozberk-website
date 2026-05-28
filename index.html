@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Dr. Eren Halil Özberk — Senior Psychometrician & AI Research Scientist</title>
+<meta name="description" content="Senior psychometrician and AI research scientist bridging measurement science and production AI — item response theory, computerised adaptive testing, fairness analysis, and LLMs in large-scale assessment." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Archivo:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --paper:#F4F1E9;
+    --paper-2:#EDE8DC;
+    --ink:#15243B;
+    --ink-2:#3C4D67;
+    --ink-3:#6A7589;
+    --accent:#D8472B;
+    --accent-soft:#E9613F;
+    --line:#D8D2C4;
+    --card:#FBFAF5;
+    --shadow:rgba(21,36,59,.10);
+    --maxw:1180px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--paper);color:var(--ink);font-family:'Archivo',sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  body::before{
+    content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
+    background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);
+    background-size:44px 44px;opacity:.15;
+    mask-image:radial-gradient(ellipse 90% 70% at 50% 0%,#000 0%,transparent 75%);
+    -webkit-mask-image:radial-gradient(ellipse 90% 70% at 50% 0%,#000 0%,transparent 75%);
+  }
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 28px;position:relative;z-index:1}
+  a{color:inherit;text-decoration:none}
+  .mono{font-family:'IBM Plex Mono',monospace}
+
+  /* ── NAV ── */
+  header{position:sticky;top:0;z-index:50;backdrop-filter:blur(10px);background:rgba(244,241,233,.82);border-bottom:1px solid var(--line)}
+  nav{display:flex;align-items:center;justify-content:space-between;height:72px}
+  .brand{display:flex;align-items:center;gap:12px;font-weight:600}
+  .monogram{width:38px;height:38px;border:1.5px solid var(--ink);border-radius:50%;display:grid;place-items:center;font-family:'Fraunces',serif;font-weight:600;font-size:15px;letter-spacing:.5px}
+  .brand small{display:block;font-size:11px;color:var(--ink-3);font-weight:500;letter-spacing:.3px}
+  .navlinks{display:flex;gap:26px;align-items:center}
+  .navlinks a{font-size:14px;color:var(--ink-2);font-weight:500;transition:color .2s}
+  .navlinks a:hover{color:var(--accent)}
+  .cv-btn{border:1.5px solid var(--ink);border-radius:40px;padding:9px 18px;font-size:13.5px;font-weight:600;color:var(--ink);transition:all .2s}
+  .cv-btn:hover{background:var(--ink);color:var(--paper)}
+  .menu-toggle{display:none;background:none;border:none;cursor:pointer;font-size:24px;color:var(--ink)}
+
+  /* ── HERO ── */
+  .hero{padding:74px 0 64px}
+  .hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:56px;align-items:center}
+  .eyebrow{font-family:'IBM Plex Mono',monospace;font-size:12.5px;letter-spacing:2px;text-transform:uppercase;color:var(--accent);margin-bottom:22px;display:flex;align-items:center;gap:10px}
+  .eyebrow::before{content:"";width:34px;height:1.5px;background:var(--accent)}
+  h1{font-family:'Fraunces',serif;font-weight:500;font-size:clamp(38px,5vw,64px);line-height:1.03;letter-spacing:-.5px;margin-bottom:24px}
+  h1 em{font-style:italic;color:var(--accent)}
+  .lede{font-size:18px;color:var(--ink-2);max-width:560px;margin-bottom:32px}
+  .hero-cta{display:flex;gap:16px;flex-wrap:wrap;align-items:center}
+  .btn-primary{background:var(--ink);color:var(--paper);padding:14px 28px;border-radius:40px;font-weight:600;font-size:15px;transition:transform .2s,background .2s}
+  .btn-primary:hover{background:var(--accent);transform:translateY(-2px)}
+  .btn-ghost{font-weight:600;font-size:15px;color:var(--ink);display:flex;align-items:center;gap:8px}
+  .btn-ghost span{transition:transform .2s}
+  .btn-ghost:hover span{transform:translateX(4px)}
+  .hero-loc{margin-top:26px;font-family:'IBM Plex Mono',monospace;font-size:12.5px;color:var(--ink-3)}
+
+  /* ── SHINY IRT WIDGET ── */
+  .shiny-widget{
+    background:var(--card);border:1px solid var(--line);border-radius:16px;
+    overflow:hidden;box-shadow:0 28px 56px -28px var(--shadow);
+  }
+  .shiny-header{
+    background:var(--ink);padding:12px 16px;display:flex;align-items:center;gap:10px;
+  }
+  .shiny-dots{display:flex;gap:6px}
+  .shiny-dots span{width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,.25)}
+  .shiny-dots span:nth-child(1){background:#FF5F57}
+  .shiny-dots span:nth-child(2){background:#FFBD2E}
+  .shiny-dots span:nth-child(3){background:#28C840}
+  .shiny-title{font-family:'IBM Plex Mono',monospace;font-size:12px;color:rgba(255,255,255,.7);flex:1;text-align:center;letter-spacing:.5px}
+  .shiny-badge{font-family:'IBM Plex Mono',monospace;font-size:10px;background:var(--accent);color:#fff;padding:2px 8px;border-radius:10px;letter-spacing:.5px}
+  .shiny-body{padding:18px 18px 16px;display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .shiny-controls{display:flex;flex-direction:column;gap:14px}
+  .sl-group label{
+    font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ink-3);letter-spacing:.5px;
+    display:flex;justify-content:space-between;margin-bottom:6px;
+  }
+  .sl-group label span{color:var(--accent);font-weight:500;font-size:12px}
+  input[type=range]{
+    width:100%;height:4px;-webkit-appearance:none;appearance:none;
+    background:var(--line);border-radius:2px;outline:none;cursor:pointer;
+  }
+  input[type=range]::-webkit-slider-thumb{
+    -webkit-appearance:none;width:14px;height:14px;border-radius:50%;
+    background:var(--ink);border:2px solid var(--paper);
+    box-shadow:0 1px 4px rgba(21,36,59,.3);
+  }
+  input[type=range]::-moz-range-thumb{width:14px;height:14px;border-radius:50%;background:var(--ink);border:2px solid var(--paper);cursor:pointer}
+  .sl-desc{font-size:11px;color:var(--ink-3);margin-top:4px}
+  .shiny-plot{position:relative}
+  .shiny-plot svg{display:block;width:100%}
+  .shiny-eq{
+    grid-column:1/-1;font-family:'Fraunces',serif;font-size:13.5px;
+    color:var(--ink-2);text-align:center;padding:8px 0 2px;border-top:1px solid var(--line);
+  }
+  .shiny-footer{
+    grid-column:1/-1;font-family:'IBM Plex Mono',monospace;font-size:10.5px;
+    color:var(--ink-3);text-align:right;
+  }
+
+  /* ── STATS ── */
+  .stats{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--paper-2)}
+  .stats-grid{display:grid;grid-template-columns:repeat(4,1fr)}
+  .stat{padding:30px 24px;border-right:1px solid var(--line)}
+  .stat:last-child{border-right:none}
+  .stat .n{font-family:'Fraunces',serif;font-size:36px;line-height:1;margin-bottom:8px}
+  .stat .l{font-size:13px;color:var(--ink-2)}
+
+  /* ── SECTIONS ── */
+  section{padding:84px 0}
+  .sec-head{margin-bottom:48px;max-width:740px}
+  .sec-tag{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--accent);margin-bottom:16px;display:block}
+  h2{font-family:'Fraunces',serif;font-weight:500;font-size:clamp(29px,3.4vw,42px);line-height:1.1;letter-spacing:-.4px;margin-bottom:18px}
+  .sec-head p{font-size:16.5px;color:var(--ink-2)}
+
+  /* ── ABOUT ── */
+  .about-grid{display:grid;grid-template-columns:1fr 1.5fr;gap:56px;align-items:start}
+  .portrait{border-radius:18px;overflow:hidden;border:1px solid var(--line);aspect-ratio:4/5;background:linear-gradient(160deg,var(--paper-2),var(--card));position:relative}
+  .portrait .ph{position:absolute;inset:0;display:grid;place-items:center;text-align:center;color:var(--ink-3);font-family:'IBM Plex Mono',monospace;font-size:12px;padding:20px}
+  .about-body p{font-size:16.5px;color:var(--ink-2);margin-bottom:18px}
+  .about-body p strong{color:var(--ink);font-weight:600}
+
+  /* ── EXPERTISE ── */
+  .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:30px 26px;transition:transform .25s,box-shadow .25s,border-color .25s}
+  .card:hover{transform:translateY(-4px);box-shadow:0 24px 44px -28px var(--shadow);border-color:var(--ink-3)}
+  .card .num{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--accent);margin-bottom:18px}
+  .card h3{font-family:'Fraunces',serif;font-weight:500;font-size:21px;margin-bottom:12px;line-height:1.18}
+  .card p{font-size:14.5px;color:var(--ink-2);margin-bottom:16px}
+  .tags{display:flex;flex-wrap:wrap;gap:7px}
+  .tag{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ink-3);border:1px solid var(--line);border-radius:30px;padding:4px 11px}
+
+  /* ── EXPERIENCE ── */
+  .timeline{display:flex;flex-direction:column}
+  .tl{display:grid;grid-template-columns:170px 1fr;gap:30px;padding:26px 0;border-top:1px solid var(--line)}
+  .tl:last-child{border-bottom:1px solid var(--line)}
+  .tl .when{font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--accent);padding-top:3px}
+  .tl .when small{display:block;color:var(--ink-3);margin-top:4px}
+  .tl h3{font-family:'Fraunces',serif;font-weight:500;font-size:22px;margin-bottom:3px}
+  .tl .org{font-size:14px;color:var(--ink-3);margin-bottom:12px}
+  .tl ul{list-style:none;display:flex;flex-direction:column;gap:7px}
+  .tl li{font-size:15px;color:var(--ink-2);padding-left:20px;position:relative}
+  .tl li::before{content:"";position:absolute;left:0;top:10px;width:7px;height:1.5px;background:var(--accent)}
+
+  /* ── ADVISORY ── */
+  .adv-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  .adv{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:24px 22px;transition:transform .2s,box-shadow .2s}
+  .adv:hover{transform:translateY(-3px);box-shadow:0 20px 38px -26px var(--shadow)}
+  .adv .role{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.5px;text-transform:uppercase;color:var(--accent);margin-bottom:10px}
+  .adv h3{font-family:'Fraunces',serif;font-weight:500;font-size:18px;line-height:1.25;margin-bottom:8px}
+  .adv p{font-size:13.5px;color:var(--ink-2)}
+
+  /* ── GLOBAL REACH ── */
+  .reach{background:var(--ink);color:var(--paper);border-radius:24px;padding:54px 50px;position:relative;overflow:hidden}
+  .reach .sec-tag{color:var(--accent-soft)}
+  .reach h2{color:var(--paper);margin-bottom:14px}
+  .reach .intro{color:rgba(244,241,233,.72);font-size:16.5px;max-width:560px;margin-bottom:40px}
+  .reach-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:26px 36px;position:relative;z-index:2}
+  .region .rn{font-family:'Fraunces',serif;font-size:20px;margin-bottom:8px;display:flex;align-items:center;gap:10px}
+  .region .rn::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--accent-soft)}
+  .region p{font-size:13.5px;color:rgba(244,241,233,.66);margin-bottom:10px;padding-left:18px}
+  .region .ctry{display:flex;flex-wrap:wrap;gap:6px;padding-left:18px}
+  .region .ctry span{font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:rgba(244,241,233,.85);border:1px solid rgba(244,241,233,.22);border-radius:20px;padding:3px 9px}
+
+  /* ── PUBLICATIONS ── */
+  .pubs{display:flex;flex-direction:column}
+  .pub{display:grid;grid-template-columns:130px 1fr auto;gap:26px;align-items:start;padding:24px 0;border-top:1px solid var(--line);transition:padding-left .2s}
+  .pub:hover{padding-left:8px}
+  .pub:last-of-type{border-bottom:1px solid var(--line)}
+  .pub .meta{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ink-3)}
+  .pub .meta b{display:block;color:var(--accent);font-size:17px;font-weight:500;margin-bottom:4px}
+  .pub h3{font-family:'Fraunces',serif;font-weight:500;font-size:19px;line-height:1.28;margin-bottom:7px}
+  .pub .auth{font-size:13.5px;color:var(--ink-2)}
+  .pub .auth b{color:var(--ink);font-weight:600}
+  .pub .go{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ink);border:1px solid var(--line);border-radius:30px;padding:6px 13px;white-space:nowrap;transition:all .2s}
+  .pub .go:hover{background:var(--ink);color:var(--paper)}
+  .pub-more{margin-top:26px;font-size:14.5px;color:var(--ink-2)}
+  .pub-more a{color:var(--accent);font-weight:600;border-bottom:1px solid var(--accent)}
+
+  /* ── CONTACT ── */
+  .contact{background:var(--ink);color:var(--paper);border-radius:26px;padding:62px 54px;position:relative;overflow:hidden}
+  .contact::after{content:"";position:absolute;right:-80px;bottom:-120px;width:360px;height:360px;border:1px solid rgba(244,241,233,.14);border-radius:50%}
+  .contact::before{content:"";position:absolute;right:-20px;bottom:-60px;width:240px;height:240px;border:1px solid rgba(244,241,233,.10);border-radius:50%}
+  .contact .sec-tag{color:var(--accent-soft)}
+  .contact h2{color:var(--paper)}
+  .contact p{color:rgba(244,241,233,.72);font-size:16.5px;max-width:520px;margin-bottom:30px}
+  .contact-links{display:flex;flex-wrap:wrap;gap:13px;position:relative;z-index:2}
+  .clink{border:1px solid rgba(244,241,233,.26);border-radius:40px;padding:12px 21px;font-size:14px;font-weight:500;transition:all .2s;display:flex;align-items:center;gap:8px}
+  .clink:hover{background:var(--paper);color:var(--ink)}
+  .clink.solid{background:var(--accent);border-color:var(--accent)}
+  .clink.solid:hover{background:var(--accent-soft);color:var(--paper)}
+
+  footer{padding:38px 0 56px;text-align:center;color:var(--ink-3)}
+
+  /* ── ANIMATIONS ── */
+  .reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease}
+  .reveal.in{opacity:1;transform:none}
+  .hero .eyebrow,.hero h1,.hero .lede,.hero .hero-cta,.hero .hero-loc{opacity:0;animation:rise .8s ease forwards}
+  .hero h1{animation-delay:.08s}.hero .lede{animation-delay:.18s}.hero .hero-cta{animation-delay:.28s}.hero .hero-loc{animation-delay:.36s}
+  .shiny-widget{opacity:0;animation:rise .9s ease .25s forwards}
+  @keyframes rise{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+
+  @media(max-width:920px){
+    .hero-grid{grid-template-columns:1fr;gap:38px}
+    .about-grid{grid-template-columns:1fr;gap:34px}
+    .cards{grid-template-columns:1fr 1fr}
+    .adv-grid{grid-template-columns:1fr 1fr}
+    .reach-grid{grid-template-columns:1fr 1fr}
+    .stats-grid{grid-template-columns:1fr 1fr}
+    .stat:nth-child(2){border-right:none}.stat{border-bottom:1px solid var(--line)}
+    .tl{grid-template-columns:1fr;gap:10px}
+    .pub{grid-template-columns:1fr;gap:9px}.pub .go{justify-self:start}
+    .navlinks{display:none}.menu-toggle{display:block}
+    .reach,.contact{padding:44px 28px}
+    .shiny-body{grid-template-columns:1fr;gap:12px}
+  }
+  @media(max-width:560px){
+    .cards,.adv-grid,.reach-grid,.stats-grid{grid-template-columns:1fr}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <nav>
+      <a class="brand" href="#top">
+        <span class="monogram">EÖ</span>
+        <span>Eren Halil Özberk<small>Senior Psychometrician · AI Research Scientist</small></span>
+      </a>
+      <div class="navlinks">
+        <a href="#about">About</a>
+        <a href="#expertise">Expertise</a>
+        <a href="#experience">Experience</a>
+        <a href="#advisory">Advisory</a>
+        <a href="#reach">Global Reach</a>
+        <a href="#publications">Research</a>
+        <a class="cv-btn" href="#contact">Contact</a>
+      </div>
+      <button class="menu-toggle" aria-label="menu">☰</button>
+    </nav>
+  </div>
+</header>
+
+<a id="top"></a>
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <div class="eyebrow">Psychometrics · AI · Measurement Science</div>
+        <h1>Measurement science for <em>fair, AI-driven</em> assessment.</h1>
+        <p class="lede">Senior psychometrician and AI research scientist bridging classical measurement theory and production AI. I design, validate, and lead large-scale assessment systems and bring psychometric rigour to LLMs and intelligent learning systems.</p>
+        <div class="hero-cta">
+          <a class="btn-primary" href="#expertise">What I do</a>
+          <a class="btn-ghost" href="#contact">Contact me <span>→</span></a>
+        </div>
+        <div class="hero-loc">// based in the United Kingdom · working across 5 continents</div>
+      </div>
+
+      <!-- Shiny-style interactive IRT widget -->
+      <div class="shiny-widget">
+        <div class="shiny-header">
+          <div class="shiny-dots"><span></span><span></span><span></span></div>
+          <div class="shiny-title">IRT Item Explorer</div>
+          <div class="shiny-badge">shiny</div>
+        </div>
+        <div class="shiny-body">
+          <div class="shiny-controls">
+            <div class="sl-group">
+              <label>Discrimination (a) <span id="val-a">1.2</span></label>
+              <input type="range" id="sl-a" min="0.3" max="3.0" step="0.1" value="1.2" oninput="drawIRT()">
+              <div class="sl-desc">How sharply the item separates ability levels</div>
+            </div>
+            <div class="sl-group">
+              <label>Difficulty (b) <span id="val-b">0.0</span></label>
+              <input type="range" id="sl-b" min="-3" max="3" step="0.1" value="0.0" oninput="drawIRT()">
+              <div class="sl-desc">Ability level where P(correct) = 0.5</div>
+            </div>
+            <div class="sl-group">
+              <label>Guessing (c) <span id="val-c">0.20</span></label>
+              <input type="range" id="sl-c" min="0" max="0.35" step="0.01" value="0.20" oninput="drawIRT()">
+              <div class="sl-desc">Lower asymptote (pseudo-guessing)</div>
+            </div>
+          </div>
+          <div class="shiny-plot">
+            <svg id="irt-svg" viewBox="0 0 210 170" width="100%">
+              <!-- grid -->
+              <g stroke="var(--line)" stroke-width="0.8">
+                <line x1="32" y1="12" x2="32" y2="148"/>
+                <line x1="32" y1="148" x2="202" y2="148"/>
+                <line x1="82" y1="12" x2="82" y2="148" stroke-dasharray="2 3" opacity=".6"/>
+                <line x1="117" y1="12" x2="117" y2="148" stroke-dasharray="2 3" opacity=".6"/>
+                <line x1="152" y1="12" x2="152" y2="148" stroke-dasharray="2 3" opacity=".6"/>
+                <line x1="32" y1="80" x2="202" y2="80" stroke-dasharray="2 3" opacity=".4"/>
+              </g>
+              <!-- axis labels -->
+              <text x="117" y="162" text-anchor="middle" font-family="IBM Plex Mono" font-size="8" fill="var(--ink-3)">θ (ability)</text>
+              <text x="12" y="80" text-anchor="middle" font-family="IBM Plex Mono" font-size="7" fill="var(--ink-3)" transform="rotate(-90 12 80)">P(correct)</text>
+              <text x="32" y="157" text-anchor="middle" font-family="IBM Plex Mono" font-size="7" fill="var(--ink-3)">-3</text>
+              <text x="117" y="157" text-anchor="middle" font-family="IBM Plex Mono" font-size="7" fill="var(--ink-3)">0</text>
+              <text x="202" y="157" text-anchor="middle" font-family="IBM Plex Mono" font-size="7" fill="var(--ink-3)">+3</text>
+              <text x="24" y="14" text-anchor="middle" font-family="IBM Plex Mono" font-size="7" fill="var(--ink-3)">1.0</text>
+              <text x="24" y="82" text-anchor="middle" font-family="IBM Plex Mono" font-size="7" fill="var(--ink-3)">0.5</text>
+              <text x="24" y="150" text-anchor="middle" font-family="IBM Plex Mono" font-size="7" fill="var(--ink-3)">0.0</text>
+              <!-- dynamic elements -->
+              <path id="icc-curve" d="" fill="none" stroke="var(--accent)" stroke-width="2.5" stroke-linecap="round"/>
+              <circle id="b-marker" cx="0" cy="0" r="3.5" fill="var(--accent)" opacity="0.9"/>
+              <line id="b-vline" x1="0" y1="0" x2="0" y2="148" stroke="var(--accent)" stroke-width="1" stroke-dasharray="3 3" opacity="0.5"/>
+            </svg>
+          </div>
+          <div class="shiny-eq" id="irt-eq">P(θ) = 0.20 + 0.80 / (1 + e<sup>−1.2(θ − 0.0)</sup>)</div>
+          <div class="shiny-footer">// 3PL Item Response Theory · built with R Shiny</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="stats">
+  <div class="wrap">
+    <div class="stats-grid">
+      <div class="stat"><div class="n">15+</div><div class="l">years designing and leading large-scale assessment</div></div>
+      <div class="stat"><div class="n">6</div><div class="l">concurrent international advisory roles</div></div>
+      <div class="stat"><div class="n">5</div><div class="l">continents of measurement and capacity-building work</div></div>
+      <div class="stat"><div class="n">850k+</div><div class="l">candidates served by assessments I have advised on</div></div>
+    </div>
+  </div>
+</div>
+
+<section id="about">
+  <div class="wrap">
+    <div class="about-grid reveal">
+      <div class="portrait"><div class="ph">[ portrait photo ]</div></div>
+      <div class="about-body">
+        <span class="sec-tag">About</span>
+        <h2>Turning technical rigour into trusted decisions, at scale.</h2>
+        <p>I am a <strong>senior psychometrician and AI research scientist</strong> with over fifteen years designing, validating, and leading large-scale assessment systems across national and international contexts. My work spans deep theory (item response theory, computerised adaptive testing, Rasch modelling, fairness analysis) and the leadership of teams and programmes that put it into practice.</p>
+        <p>Increasingly, that work sits where <strong>measurement science meets artificial intelligence</strong>: building and validating LLM-assisted assessment workflows, evaluating AI scoring against psychometric standards, and bringing governance and rigour to AI in education and psychology.</p>
+        <p>I hold <strong>six concurrent advisory roles</strong> with leading institutions and have built trusted relationships with national test centres, ministries, and development partners across Europe, Central Asia, East Africa, and the Caribbean. I care about assessment that is not only reliable, but fair across languages, cultures, and populations.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="expertise" style="padding-top:24px">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="sec-tag">Expertise</span>
+      <h2>Where psychometrics meets production AI.</h2>
+      <p>Six areas where I bring measurement science, AI/ML, and scientific leadership together.</p>
+    </div>
+    <div class="cards">
+      <div class="card reveal">
+        <div class="num">01</div>
+        <h3>AI-Enabled Assessment and Skills Inference</h3>
+        <p>Designing assessment and scoring systems that infer skills and abilities from rich response data, combining IRT-based modelling with machine-learning pipelines.</p>
+        <div class="tags"><span class="tag">automated scoring</span><span class="tag">skills inference</span><span class="tag">ML pipelines</span></div>
+      </div>
+      <div class="card reveal">
+        <div class="num">02</div>
+        <h3>LLMs and Intelligent Learning Systems</h3>
+        <p>LLM-assisted item generation, review and classification; prompt engineering for psychometric tasks; integrating language models into research workflows via Python APIs.</p>
+        <div class="tags"><span class="tag">LLM workflows</span><span class="tag">item generation</span><span class="tag">OpenAI / Anthropic</span></div>
+      </div>
+      <div class="card reveal">
+        <div class="num">03</div>
+        <h3>Validation Methodologies and Measurement Science</h3>
+        <p>The full measurement toolkit: IRT, MIRT, Rasch, CAT and multistage testing, DIF and fairness analysis, equating, and standard setting for high-stakes assessment.</p>
+        <div class="tags"><span class="tag">IRT / MIRT</span><span class="tag">CAT / MST</span><span class="tag">DIF and fairness</span><span class="tag">equating</span></div>
+      </div>
+      <div class="card reveal">
+        <div class="num">04</div>
+        <h3>Production-Scale AI Systems and Model Governance</h3>
+        <p>Quality assurance and validation of AI/LLM scoring pipelines, bias detection, and critical evaluation of model outputs against measurement and fairness standards.</p>
+        <div class="tags"><span class="tag">model governance</span><span class="tag">bias detection</span><span class="tag">QA and validation</span></div>
+      </div>
+      <div class="card reveal">
+        <div class="num">05</div>
+        <h3>Scientific Leadership Across Product and Engineering Teams</h3>
+        <p>Leading psychometric teams and coordinating across product, engineering, and research. Translating complex methodology into shared roadmaps and actionable evidence.</p>
+        <div class="tags"><span class="tag">team leadership</span><span class="tag">cross-functional</span><span class="tag">research strategy</span></div>
+      </div>
+      <div class="card reveal">
+        <div class="num">06</div>
+        <h3>AI/ML, Psychometrics, LLMs and Large-Scale Production Systems</h3>
+        <p>Bringing it together: large-scale reproducible production systems pairing AI/ML and LLMs with psychometric validity, built on R, Python, SQL, and BigQuery.</p>
+        <div class="tags"><span class="tag">large-scale data</span><span class="tag">R · Python · SQL</span><span class="tag">BigQuery</span><span class="tag">reproducible</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="experience" style="padding-top:24px">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="sec-tag">Experience</span>
+      <h2>A career across research, industry and academia.</h2>
+    </div>
+    <div class="timeline reveal">
+      <div class="tl">
+        <div class="when">Dec 2021 to Present<small>United Kingdom</small></div>
+        <div>
+          <h3>Senior Psychometrician</h3>
+          <div class="org">National Foundation for Educational Research (NFER)</div>
+          <ul>
+            <li>Lead a team of psychometric professionals, coordinating across interdisciplinary teams to deliver large-scale assessment programmes.</li>
+            <li>Integrate AI and machine learning techniques to improve score accuracy, detect bias, and ensure fairness across assessments.</li>
+            <li>Develop and refine psychometric models using IRT, Rasch analysis, and automated testing algorithms; translate complex data into actionable reports.</li>
+            <li>Lead international capacity-building work across Central Asia, East Africa, and the Caribbean.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="tl">
+        <div class="when">Mar 2021 to Nov 2021<small>Germany</small></div>
+        <div>
+          <h3>Research Associate</h3>
+          <div class="org">Leibniz Institute for Educational Trajectories (LIfBi)</div>
+          <ul>
+            <li>Managed preprocessing and transformation of large-scale computer-based survey data for advanced psychometric analysis.</li>
+            <li>Conducted reliability and validity assessments for competence tests; adapted computerised tests for scaling and standardisation.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="tl">
+        <div class="when">Aug 2017 to Mar 2021<small>Türkiye</small></div>
+        <div>
+          <h3>Assistant Professor</h3>
+          <div class="org">Trakya University — Educational Measurement and Evaluation</div>
+          <ul>
+            <li>Taught measurement and evaluation, statistics, and R programming at undergraduate and graduate levels.</li>
+            <li>Supervised a Computer Adaptive Testing lab focused on personalised assessment and advanced testing research.</li>
+            <li>Conducted annual psychometric validation of international student selection tests.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="tl">
+        <div class="when">2015 to 2016<small>United States</small></div>
+        <div>
+          <h3>Visiting Scholar</h3>
+          <div class="org">UNC Greensboro, Educational Research Methodology · TÜBİTAK Fellow</div>
+          <ul>
+            <li>Conducted pioneering research in Multidimensional IRT for computerised adaptive testing.</li>
+            <li>Ran large-scale MIRT-CAT simulation studies; analysed differential item functioning in intelligence scales; calibrated item banks with incomplete data.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="tl">
+        <div class="when">2013 to 2016<small>Türkiye</small></div>
+        <div>
+          <h3>Psychometrician</h3>
+          <div class="org">Hacettepe University, Monitoring and Evaluation Office</div>
+          <ul>
+            <li>Designed psychometric analyses for clinical outcome assessments and international selection examinations.</li>
+            <li>Managed item banks for summative medical examinations; produced calibration and reliability reports.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="advisory" style="padding-top:24px">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="sec-tag">Advisory and Affiliations</span>
+      <h2>Six concurrent advisory roles.</h2>
+      <p>An unusually broad network of institutional trust across assessment, research, and open science.</p>
+    </div>
+    <div class="adv-grid">
+      <div class="adv reveal">
+        <div class="role">Scientific Advisory · 2025</div>
+        <h3>UCL Centre for Longitudinal Studies</h3>
+        <p>Psychometric and methodological advice on cohort and longitudinal research design, measurement quality, and comparability.</p>
+      </div>
+      <div class="adv reveal">
+        <div class="role">Psychometric Advisor · 2023</div>
+        <h3>Trinity College London</h3>
+        <p>Advisory on Secure English Language Tests and item-bank calibration for CEFR-aligned, UKVI-approved high-stakes assessments.</p>
+      </div>
+      <div class="adv reveal">
+        <div class="role">Advisor Psychometrician · 2025</div>
+        <h3>Council of Europe</h3>
+        <p>Expert guidance on CEFR-aligned assessment frameworks for a foreign-language education quality programme.</p>
+      </div>
+      <div class="adv reveal">
+        <div class="role">International Advisory · 2023</div>
+        <h3>Turkic States and East Africa</h3>
+        <p>Member of international psychometric advisory teams for national examination bodies across Turkic-speaking states; assessment capacity building and Training-of-Trainers across East Africa.</p>
+      </div>
+      <div class="adv reveal">
+        <div class="role">Contributor · 2025</div>
+        <h3>R Core Development Team</h3>
+        <p>Contributions to the R open-source ecosystem: issue resolution, documentation, and broadening participation in statistical computing.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="reach" style="padding-top:24px">
+  <div class="wrap">
+    <div class="reach reveal">
+      <span class="sec-tag">Global Reach</span>
+      <h2>Measurement work across five continents.</h2>
+      <p class="intro">National test centres, ministries, and development partners trust me to build assessment capacity and validate high-stakes systems wherever rigorous measurement is needed.</p>
+      <div class="reach-grid">
+        <div class="region">
+          <div class="rn">United Kingdom and Europe</div>
+          <p>National reference testing, longitudinal studies, and CEFR-aligned competence assessment.</p>
+          <div class="ctry"><span>United Kingdom</span><span>Germany</span></div>
+        </div>
+        <div class="region">
+          <div class="rn">Türkiye</div>
+          <p>University selection, scale development, and psychometric training for national programmes.</p>
+          <div class="ctry"><span>Türkiye</span></div>
+        </div>
+        <div class="region">
+          <div class="rn">Central Asia and Caucasus</div>
+          <p>National testing systems, standard setting, and training for psychometricians and item writers.</p>
+          <div class="ctry"><span>Kazakhstan</span><span>Azerbaijan</span></div>
+        </div>
+        <div class="region">
+          <div class="rn">East Africa</div>
+          <p>Foundations for national large-scale assessment and sustainable in-country psychometric capacity.</p>
+          <div class="ctry"><span>Kenya</span><span>Zanzibar</span></div>
+        </div>
+        <div class="region">
+          <div class="rn">Caribbean</div>
+          <p>Psychometric design and implementation for a national student assessment system.</p>
+          <div class="ctry"><span>Belize</span></div>
+        </div>
+        <div class="region">
+          <div class="rn">Oceania</div>
+          <p>Psychometric strategy and technical reporting for high-stakes national achievement testing.</p>
+          <div class="ctry"><span>Australasia</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="publications" style="padding-top:24px">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="sec-tag">Selected Research</span>
+      <h2>Publications and books.</h2>
+      <p>A selection from peer-reviewed journals, books, and methodological work in measurement.</p>
+    </div>
+    <div class="pubs reveal">
+      <div class="pub">
+        <div class="meta"><b>2025</b>Book chapter · IGI Global</div>
+        <div><h3>Learning Theories in Psychology: From Philosophical Roots to Educational Measurement</h3><div class="auth"><b>Özberk, E. H.</b> in <em>Exploring Adult Education Through Learning Theory</em>.</div></div>
+        <a class="go" href="https://orcid.org/0000-0003-2136-3081" target="_blank">View</a>
+      </div>
+      <div class="pub">
+        <div class="meta"><b>2023</b>Early Childhood Education Journal</div>
+        <div><h3>Number Sense Across the Transition from Preschool to Elementary School: A Latent Profile Analysis</h3><div class="auth">Gözüm, <b>Özberk</b>, Kaya and Uyanık Aktulun.</div></div>
+        <a class="go" href="https://doi.org/10.1007/s10643-023-01511-w" target="_blank">DOI</a>
+      </div>
+      <div class="pub">
+        <div class="meta"><b>2021</b>Int. J. Assessment Tools in Education</div>
+        <div><h3>Investigating Invariant Item Ordering in Intelligence Tests: Mokken Scale Analysis of KBIT-2</h3><div class="auth"><b>Özberk</b>, Ünsal Özberk, Uluç and Öktem.</div></div>
+        <a class="go" href="https://doi.org/10.21449/ijate.858183" target="_blank">DOI</a>
+      </div>
+      <div class="pub">
+        <div class="meta"><b>2019</b>Book · PegemA</div>
+        <div><h3>Data Analysis and Psychometry Applications with R</h3><div class="auth">Atar, Atalay Kabasakal, Ünsal Özberk, <b>Özberk</b> and Kıbrıslıoğlu Uysal.</div></div>
+        <a class="go" href="https://doi.org/10.14527/9786052417140" target="_blank">DOI</a>
+      </div>
+      <div class="pub">
+        <div class="meta"><b>2018</b>Applied Psychological Measurement</div>
+        <div><h3>Software Review of flexMIRT Version 3.5</h3><div class="auth">Cavanaugh, Heiser, Hoeve, <b>Özberk</b>, Patton, Sessoms, Stockdale, Ünsal-Özberk and Wood.</div></div>
+        <a class="go" href="https://doi.org/10.1177/0146621617726792" target="_blank">DOI</a>
+      </div>
+      <div class="pub">
+        <div class="meta"><b>2017</b>J. Measurement and Evaluation in Education and Psychology</div>
+        <div><h3>A Comparison of Multidimensional Item Selection Methods in Simple and Complex Test Designs</h3><div class="auth"><b>Özberk</b> and Gelbal.</div></div>
+        <a class="go" href="https://doi.org/10.21031/epod.286956" target="_blank">DOI</a>
+      </div>
+    </div>
+    <div class="pub-more reveal">Full publication list on <a href="https://orcid.org/0000-0003-2136-3081" target="_blank">ORCID</a> and <a href="https://scholar.google.com/citations?user=2_tJbs8AAAAJ&hl=en" target="_blank">Google Scholar</a>.</div>
+  </div>
+</section>
+
+<section id="contact" style="padding-top:20px">
+  <div class="wrap">
+    <div class="contact reveal">
+      <span class="sec-tag">Get in touch</span>
+      <h2>Precision measurement at the frontier of AI.</h2>
+      <p>Open to Director of Research and scientific leadership roles, advisory partnerships, and consulting on psychometrics, AI assessment governance, and large-scale measurement systems.</p>
+      <div class="contact-links">
+        <a class="clink solid" href="mailto:erenozberk@gmail.com">✉ erenozberk@gmail.com</a>
+        <a class="clink" href="https://www.linkedin.com/in/rnzbrk/" target="_blank">LinkedIn</a>
+        <a class="clink" href="https://scholar.google.com/citations?user=2_tJbs8AAAAJ&hl=en" target="_blank">Google Scholar</a>
+        <a class="clink" href="https://orcid.org/0000-0003-2136-3081" target="_blank">ORCID</a>
+        <a class="clink" href="https://github.com/rnzbrk" target="_blank">GitHub</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap"><div class="mono" style="font-size:12.5px">© 2026 Dr. Eren Halil Özberk · Senior Psychometrician and AI Research Scientist · United Kingdom</div></div>
+</footer>
+
+<script>
+/* ── IRT INTERACTIVE WIDGET ── */
+function drawIRT() {
+  const a = parseFloat(document.getElementById('sl-a').value);
+  const b = parseFloat(document.getElementById('sl-b').value);
+  const c = parseFloat(document.getElementById('sl-c').value);
+
+  document.getElementById('val-a').textContent = a.toFixed(1);
+  document.getElementById('val-b').textContent = b.toFixed(1);
+  document.getElementById('val-c').textContent = c.toFixed(2);
+
+  const cDisp = c.toFixed(2);
+  const oneMinusC = (1 - c).toFixed(2);
+  const bSign = b >= 0 ? ' \u2212 ' + Math.abs(b).toFixed(1) : ' + ' + Math.abs(b).toFixed(1);
+  document.getElementById('irt-eq').innerHTML =
+    'P(&theta;) = ' + cDisp + ' + ' + oneMinusC +
+    ' / (1 + e<sup>\u2212' + a.toFixed(1) + '(&theta;' + bSign + ')</sup>)';
+
+  // SVG coordinate helpers (viewBox 0 0 210 170)
+  // theta in [-3, 3] maps to x in [32, 202]
+  // P in [0, 1] maps to y in [148, 12]
+  function tx(theta) { return 32 + (theta + 3) / 6 * 170; }
+  function ty(p)     { return 148 - p * 136; }
+
+  // Build curve path
+  const N = 120;
+  let d = '';
+  for (let i = 0; i <= N; i++) {
+    const theta = -3 + 6 * i / N;
+    const P = c + (1 - c) / (1 + Math.exp(-a * (theta - b)));
+    const x = tx(theta).toFixed(1);
+    const y = ty(P).toFixed(1);
+    d += (i === 0 ? 'M' : 'L') + x + ',' + y;
+  }
+  document.getElementById('icc-curve').setAttribute('d', d);
+
+  // b-marker: point on curve at theta=b
+  const Pb = c + (1 - c) / 2;
+  const bx = tx(b).toFixed(1);
+  const by = ty(Pb).toFixed(1);
+  const mkr = document.getElementById('b-marker');
+  const vln = document.getElementById('b-vline');
+  mkr.setAttribute('cx', bx); mkr.setAttribute('cy', by);
+  vln.setAttribute('x1', bx); vln.setAttribute('x2', bx);
+  vln.setAttribute('y1', by); vln.setAttribute('y2', '148');
+}
+
+// Draw on load
+drawIRT();
+
+/* ── SCROLL REVEAL ── */
+const obs = new IntersectionObserver(es => {
+  es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); obs.unobserve(e.target); }});
+}, {threshold: .1});
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+/* ── MOBILE MENU ── */
+document.querySelector('.menu-toggle').addEventListener('click', () => {
+  const n = document.querySelector('.navlinks');
+  const open = n.style.display === 'flex';
+  n.style.display = open ? 'none' : 'flex';
+  if (!open) {
+    Object.assign(n.style, {flexDirection:'column',position:'absolute',top:'72px',right:'28px',
+      background:'var(--paper)',padding:'20px',border:'1px solid var(--line)',borderRadius:'14px',gap:'16px'});
+  }
+});
+</script>
+</body>
+</html>
