@@ -370,7 +370,7 @@ x_i \in \{0, 1\}
 <h2 data-number="4" class="anchored" data-anchor-id="implementation-in-r"><span class="header-section-number">4</span> Implementation in R</h2>
 <section id="packages" class="level3" data-number="4.1">
 <h3 data-number="4.1" class="anchored" data-anchor-id="packages"><span class="header-section-number">4.1</span> Packages</h3>
-<div class="cell" data-layout-align="center">
+<div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)    <span class="co"># data wrangling and visualisation</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lpSolve)      <span class="co"># integer linear programming</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(scales)       <span class="co"># axis formatting in ggplot</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -379,7 +379,7 @@ x_i \in \{0, 1\}
 <section id="generating-an-item-bank" class="level3" data-number="4.2">
 <h3 data-number="4.2" class="anchored" data-anchor-id="generating-an-item-bank"><span class="header-section-number">4.2</span> Generating an item bank</h3>
 <p>We simulate a bank of 200 items with 2PL parameters and four content categories. In practice these would come from your calibration software (flexMIRT, Winsteps, Mplus, etc.).</p>
-<div class="cell" data-layout-align="center">
+<div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2025</span>)</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>N <span class="ot">&lt;-</span> <span class="dv">200</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -427,7 +427,7 @@ x_i \in \{0, 1\}
 </div>
 </div>
 </div>
-<div class="cell" data-layout-align="center">
+<div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(item_bank, <span class="fu">aes</span>(<span class="at">x =</span> a)) <span class="sc">+</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">fill =</span> <span class="st">"#15243B"</span>, <span class="at">colour =</span> <span class="st">"#F4F1E9"</span>, <span class="at">bins =</span> <span class="dv">30</span>, <span class="at">linewidth =</span> .<span class="dv">3</span>) <span class="sc">+</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Discrimination (a)"</span>, <span class="at">y =</span> <span class="st">"Count"</span>, <span class="at">title =</span> <span class="st">"Item Discrimination"</span>) <span class="sc">+</span></span>
@@ -453,7 +453,7 @@ x_i \in \{0, 1\}
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="index_files/figure-html/item-bank-plot-1.png" class="img-fluid figure-img" width="1350"></p>
+<p><img src="index_files/figure-html/item-bank-plot-1.png" class="img-fluid figure-img" width="672"></p>
 <figcaption>Distribution of item parameters across the bank. Discrimination follows a log-normal distribution; difficulty is approximately normal.</figcaption>
 </figure>
 </div>
@@ -465,7 +465,7 @@ x_i \in \{0, 1\}
 </section>
 <section id="irt-information-functions" class="level3" data-number="4.3">
 <h3 data-number="4.3" class="anchored" data-anchor-id="irt-information-functions"><span class="header-section-number">4.3</span> IRT information functions</h3>
-<div class="cell" data-layout-align="center">
+<div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 2PL item information at a single theta</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>item_info_2pl <span class="ot">&lt;-</span> <span class="cf">function</span>(a, b, theta) {</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  P <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">/</span> (<span class="dv">1</span> <span class="sc">+</span> <span class="fu">exp</span>(<span class="sc">-</span>a <span class="sc">*</span> (theta <span class="sc">-</span> b)))</span>
@@ -480,7 +480,7 @@ x_i \in \{0, 1\}
 <span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Let us verify the information function behaves as expected for a sample item:</p>
-<div class="cell" data-layout-align="center">
+<div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>theta_grid <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">4</span>, <span class="dv">4</span>, <span class="at">by =</span> <span class="fl">0.05</span>)</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>sample_item <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">a =</span> <span class="fl">1.4</span>, <span class="at">b =</span> <span class="fl">0.5</span>)</span>
@@ -502,7 +502,7 @@ x_i \in \{0, 1\}
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="index_files/figure-html/info-check-1.png" class="img-fluid figure-img" width="1350"></p>
+<p><img src="index_files/figure-html/info-check-1.png" class="img-fluid figure-img" width="672"></p>
 <figcaption>Item characteristic curve (ICC, left) and item information function (IIF, right) for a sample item with a = 1.4, b = 0.5.</figcaption>
 </figure>
 </div>
@@ -512,7 +512,7 @@ x_i \in \{0, 1\}
 <section id="the-ata-solver" class="level3" data-number="4.4">
 <h3 data-number="4.4" class="anchored" data-anchor-id="the-ata-solver"><span class="header-section-number">4.4</span> The ATA solver</h3>
 <p>The core function below wraps <code>lpSolve::lp()</code> to solve the MILP for one module. Key inputs are the item bank, a logical vector of available items, a target <span class="math inline">\(\theta^*\)</span>, a desired module length, and a named list of content constraints.</p>
-<div class="cell" data-layout-align="center">
+<div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>assemble_module <span class="ot">&lt;-</span> <span class="cf">function</span>(bank,</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>                            available,</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>                            target_theta,</span>
@@ -592,7 +592,7 @@ x_i \in \{0, 1\}
 <section id="content-specifications" class="level3" data-number="5.1">
 <h3 data-number="5.1" class="anchored" data-anchor-id="content-specifications"><span class="header-section-number">5.1</span> Content specifications</h3>
 <p>Each module must satisfy these constraints:</p>
-<div class="cell" data-layout-align="center">
+<div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>n_per_module <span class="ot">&lt;-</span> <span class="dv">10</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>content_specs <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
@@ -606,7 +606,7 @@ x_i \in \{0, 1\}
 <section id="sequential-assembly" class="level3" data-number="5.2">
 <h3 data-number="5.2" class="anchored" data-anchor-id="sequential-assembly"><span class="header-section-number">5.2</span> Sequential assembly</h3>
 <p>We assemble Stage 1 first, then remove those items, assemble Stage 2 modules, remove their items, and finally assemble Stage 3 modules. This ensures no item appears in more than one module.</p>
-<div class="cell" data-layout-align="center">
+<div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>available <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="cn">TRUE</span>, <span class="fu">nrow</span>(item_bank))</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>modules   <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -656,7 +656,7 @@ x_i \in \{0, 1\}
 </section>
 <section id="module-summary" class="level3" data-number="5.3">
 <h3 data-number="5.3" class="anchored" data-anchor-id="module-summary"><span class="header-section-number">5.3</span> Module summary</h3>
-<div class="cell" data-layout-align="center">
+<div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>module_labels <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">S1      =</span> <span class="st">"Stage 1 — Routing"</span>,</span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">S2_Easy =</span> <span class="st">"Stage 2 — Easy"</span>,</span>
@@ -792,7 +792,7 @@ x_i \in \{0, 1\}
 <section id="module-information-functions" class="level3" data-number="6.1">
 <h3 data-number="6.1" class="anchored" data-anchor-id="module-information-functions"><span class="header-section-number">6.1</span> Module information functions</h3>
 <p>The plot below shows the test information function for each assembled module alongside the target ability <span class="math inline">\(\theta^*\)</span> (dashed vertical line). Well-assembled modules peak near their target.</p>
-<div class="cell" data-layout-align="center">
+<div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>theta_grid <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">4</span>, <span class="dv">4</span>, <span class="at">length.out =</span> <span class="dv">200</span>)</span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>tif_data <span class="ot">&lt;-</span> <span class="fu">map_dfr</span>(<span class="fu">names</span>(modules), <span class="cf">function</span>(nm) {</span>
@@ -829,7 +829,7 @@ x_i \in \{0, 1\}
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="index_files/figure-html/tif-modules-1.png" class="img-fluid figure-img" width="1350"></p>
+<p><img src="index_files/figure-html/tif-modules-1.png" class="img-fluid figure-img" width="672"></p>
 <figcaption>Test information functions for each assembled module. Dashed vertical lines mark the ATA target ability level. Each module peaks close to its intended target.</figcaption>
 </figure>
 </div>
@@ -839,7 +839,7 @@ x_i \in \{0, 1\}
 <section id="path-information-functions" class="level3" data-number="6.2">
 <h3 data-number="6.2" class="anchored" data-anchor-id="path-information-functions"><span class="header-section-number">6.2</span> Path information functions</h3>
 <p>An examinee’s total measurement precision depends on the combination of modules they traverse. Below we plot the cumulative information for all four testlet paths.</p>
-<div class="cell" data-layout-align="center">
+<div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>paths <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Low (S1 → S2E → S3E)"</span>  <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"S1"</span>,<span class="st">"S2_Easy"</span>,<span class="st">"S3_Easy"</span>),</span>
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Med-Low (S1 → S2E → S3M)"</span>  <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"S1"</span>,<span class="st">"S2_Easy"</span>,<span class="st">"S3_Med"</span>),</span>
@@ -879,7 +879,7 @@ x_i \in \{0, 1\}
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="index_files/figure-html/tif-paths-1.png" class="img-fluid figure-img" width="1350"></p>
+<p><img src="index_files/figure-html/tif-paths-1.png" class="img-fluid figure-img" width="672"></p>
 <figcaption>Cumulative test information functions for the four MST paths. Each path is well-targeted at its intended ability range, with minimal overlap at the extremes — the hallmark of a well-assembled MST panel.</figcaption>
 </figure>
 </div>
@@ -892,7 +892,7 @@ x_i \in \{0, 1\}
 <h2 data-number="7" class="anchored" data-anchor-id="routing-logic"><span class="header-section-number">7</span> Routing Logic</h2>
 <p>Routing decisions are made at the end of each stage based on the examinee’s estimated ability <span class="math inline">\(\hat{\theta}\)</span> (or, in simpler implementations, their observed proportion correct).</p>
 <p>A practical approach uses <strong>fixed cut scores</strong> on <span class="math inline">\(\hat{\theta}\)</span> derived from simulation studies or from the module difficulty parameters:</p>
-<div class="cell" data-layout-align="center">
+<div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Routing rules based on theta estimate after each stage</span></span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>route_stage1 <span class="ot">&lt;-</span> <span class="cf">function</span>(theta_hat) {</span>
@@ -981,7 +981,7 @@ x_i \in \{0, 1\}
 </div>
 </div>
 </div>
-<div class="cell" data-layout-align="center">
+<div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>sim_results <span class="sc">|&gt;</span></span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
 <span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">path_label =</span> <span class="fu">case_when</span>(</span>
@@ -1010,7 +1010,7 @@ x_i \in \{0, 1\}
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="index_files/figure-html/routing-plot-1.png" class="img-fluid figure-img" width="1350"></p>
+<p><img src="index_files/figure-html/routing-plot-1.png" class="img-fluid figure-img" width="672"></p>
 <figcaption>Distribution of true ability by assigned path. Paths are well-separated, confirming the routing cut scores are working as intended.</figcaption>
 </figure>
 </div>
