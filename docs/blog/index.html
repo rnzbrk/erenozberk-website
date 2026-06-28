@@ -6,12 +6,24 @@
 <title>Blog — Dr. Eren Halil Özberk</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Archivo:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link href=<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
 <style>
-  :root{--paper:#F4F1E9;--paper-2:#EDE8DC;--ink:#15243B;--ink-2:#3C4D67;--ink-3:#6A7589;--accent:#D8472B;--accent-soft:#E9613F;--line:#D8D2C4;--card:#FBFAF5;--shadow:rgba(21,36,59,.10);--maxw:860px}
+  :root{
+    --paper:#FAFAF7;
+    --paper-2:#DDF3F1;
+    --ink:#193041;
+    --ink-2:#4A6473;
+    --ink-3:#4A6473;
+    --accent:#0B7E87;
+    --accent-soft:#075E66;
+    --line:#D8E5E6;
+    --card:#FFFFFF;
+    --shadow:rgba(25,48,65,.10);
+    --maxw:1180px;
+}
   *{box-sizing:border-box;margin:0;padding:0}
   html{scroll-behavior:smooth}
-  body{background:var(--paper);color:var(--ink);font-family:'Archivo',sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased}
+  body{background:var(--paper);color:var(--ink);font-family:'Inter',sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased}
   .wrap{max-width:var(--maxw);margin:0 auto;padding:0 28px}
   a{color:inherit;text-decoration:none}
 
@@ -20,11 +32,11 @@
   .top-bar{display:flex;align-items:center;justify-content:space-between}
   .top-bar a{color:var(--paper);font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:.5px;opacity:.7;transition:opacity .2s}
   .top-bar a:hover{opacity:1}
-  .top-bar .name{font-family:'Fraunces',serif;font-size:16px;font-weight:500;opacity:1}
+  .top-bar .name{font-family:'Sora',sans-serif;font-size:16px;font-weight:500;opacity:1}
 
   /* HERO */
   .hero{padding:64px 0 48px}
-  .hero h1{font-family:'Fraunces',serif;font-weight:500;font-size:clamp(32px,4vw,48px);margin-bottom:14px}
+  .hero h1{font-family:'Sora',sans-serif;font-weight:500;font-size:clamp(32px,4vw,48px);margin-bottom:14px}
   .hero p{font-size:17px;color:var(--ink-2);max-width:540px}
 
   /* POSTS */
@@ -36,7 +48,7 @@
   .post-card:hover{transform:translateY(-3px);box-shadow:0 20px 40px -24px var(--shadow);border-color:var(--ink-3)}
   .post-meta{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ink-3);margin-bottom:12px;display:flex;gap:16px;flex-wrap:wrap}
   .post-meta .date{color:var(--accent)}
-  .post-card h2{font-family:'Fraunces',serif;font-weight:500;font-size:24px;line-height:1.2;margin-bottom:10px}
+  .post-card h2{font-family:'Sora',sans-serif;font-weight:500;font-size:24px;line-height:1.2;margin-bottom:10px}
   .post-card p{font-size:15px;color:var(--ink-2);margin-bottom:16px}
   .post-tags{display:flex;flex-wrap:wrap;gap:6px}
   .post-tags span{font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:var(--ink-3);border:1px solid var(--line);border-radius:20px;padding:3px 10px}
