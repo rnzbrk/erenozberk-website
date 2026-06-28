@@ -10,11 +10,18 @@ website:
 format:
   html:
     theme: cosmo
+    favicon: /assets/favicon.png
     toc: true
     code-copy: true
     code-overflow: wrap
     fig-align: center
     link-external-newwindow: true
+    include-before-body:
+      text: |
+        <div style="background:#15243B;padding:10px 70px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:1px;line-height:1;">
+          <a href="/" style="color:#F4F1E9;text-decoration:none;opacity:.85;">← erenozberk.com</a>
+          <a href="/blog/" style="color:#F4F1E9;text-decoration:none;opacity:.55;margin-left:24px;">Blog</a>
+        </div>
 
 execute:
   freeze: auto
