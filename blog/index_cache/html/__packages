@@ -11,3 +11,5 @@ lubridate
 lavaan
 semTools
 knitr
+lpSolve
+scales
